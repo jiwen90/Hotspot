@@ -81,3 +81,5 @@ def local_correlation_plot(
 
     min_aa.set_ylabel('Z-Scores')
     min_aa.yaxis.set_label_position("left")
+
+    return cm

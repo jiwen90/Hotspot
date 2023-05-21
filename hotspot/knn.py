@@ -176,11 +176,11 @@ def _search(current_node, previous_node, distance):
     return result
 
 
-def _knn(leaf, K):
+def _knn(leaf, K, rng):
 
     dists = _search(leaf, None, 0)
     dists = pd.Series(dists)
-    dists = dists + np.random.rand(len(dists)) * .9  # to break ties randomly
+    dists = dists + rng.random(len(dists)) * .9  # to break ties randomly
 
     neighbors = dists.sort_values().index[0:K].tolist()
 
@@ -219,8 +219,10 @@ def tree_neighbors_and_weights(tree, n_neighbors, cell_labels):
 
     all_neighbors = {}
 
+    rng = np.random.default_rng(0)
+
     for leaf in tqdm(all_leaves):
-        neighbors = _knn(leaf, K)
+        neighbors = _knn(leaf, K, rng)
         all_neighbors[leaf.name] = neighbors
 
     cell_ix = {c: i for i, c in enumerate(cell_labels)}

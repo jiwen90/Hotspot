@@ -744,7 +744,7 @@ def initializer3(counts, neighbors, weights, eg2s):
 
 
 def compute_hs_pairs_centered_cond(counts, neighbors, weights,
-                                   num_umi, model, jobs=1):
+                                   num_umi, model, jobs=1, chunksize=1):
 
     genes = counts.index
 
@@ -776,7 +776,8 @@ def compute_hs_pairs_centered_cond(counts, neighbors, weights,
                 tqdm(
                     pool.imap(
                         _map_fun_parallel_pairs_centered_cond,
-                        pairs
+                        pairs,
+                        chunksize
                     ),
                     total=len(pairs)
                 )

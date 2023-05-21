@@ -435,7 +435,7 @@ class Hotspot:
         """
         return self._compute_hotspot(jobs)
 
-    def compute_local_correlations(self, genes, jobs=1):
+    def compute_local_correlations(self, genes, jobs=1, chunksize=1):
         """Define gene-gene relationships with pair-wise local correlations
 
         In addition to returning output, this method stores its result
@@ -473,6 +473,7 @@ class Hotspot:
             self.umi_counts,
             self.model,
             jobs=jobs,
+            chunksize=chunksize,
         )
 
         self.local_correlation_c = lc
